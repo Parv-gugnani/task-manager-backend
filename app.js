@@ -1,9 +1,17 @@
 const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
+
+// const MongoClient = mongodb.MongoClient;
+// const connectionURL = "mongodb://localhost:27017";
+// const databaseName = "task-manager";
+// const ObjectId = mongodb.ObjectId;
+const { MongoClient, ObjectID } = require("mongodb");
 
 const connectionURL = "mongodb://localhost:27017";
 const databaseName = "task-manager";
-const 
+
+const id = new ObjectID();
+// console.log(id.id.length);
+console.log(id.getTimestamp());
 
 // Connect to MongoDB using the native driver
 MongoClient.connect(
@@ -20,7 +28,8 @@ MongoClient.connect(
 
     // db.collection("users").insertOne(
     //   {
-    //     name: "saa",
+    //     _id: id,
+    //     name: "vik",
     //     age: 19,
     //   },
     //   (err, result) => {
