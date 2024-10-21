@@ -38,6 +38,12 @@ router.get("/tasks/:id", async (req, res) => {
   }
 });
 
+//goal
+//1 find the task
+//2 edit the task propertis
+//3 save your task
+//4 test in postman
+
 router.patch("/tasks/:id", async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["description", "completed"];
@@ -50,10 +56,17 @@ router.patch("/tasks/:id", async (req, res) => {
   }
 
   try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const task = await Task.findById(req.params.id);
+
+    updates.forEach((update) => (task[update] = req.body[update]));
+
+    await task.save();
+
+    //
+    // const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    //   new: true,
+    //   runValidators: true,
+    // });
 
     if (!task) {
       return res.status(404).send();
