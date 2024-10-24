@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const userRouter = require("../src/routers/userRouter");
 const taskRouter = require("../src/routers/taskRouter");
-
+const jwt = require("jsonwebtoken");
 const Task = require("./models/task");
 
 app.use(express.json());
