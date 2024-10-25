@@ -58,6 +58,12 @@ router.get("/users/me", auth, async (req, res) => {
   res.send(req.user);
 });
 
+router.post("/users/welcome", (req, res) => {
+  const { email, name } = req.body;
+  sendWelcomeEmail(email, name);
+  res.status(200).send("Welcome email sent!");
+});
+
 router.patch("/users/ ", auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password", "age"];

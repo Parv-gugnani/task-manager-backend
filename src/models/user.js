@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const Task = require("./task");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const userSchema = new mongoose.Schema(
   {
@@ -60,15 +61,22 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// userSchema.virtual("tasks", {
-//   ref: "Task",
-//   localField: "_id",
-//   foreignField: "owner",
-// });
+userSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "owner",
+});
 
-// userSchema.methods.toJSON = function () {};
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
 
-require("dotenv").config();
+  delete userObject.password;
+  delete userObject.tokens;
+  delete userObject.avatar;
+
+  return userObject;
+};
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
