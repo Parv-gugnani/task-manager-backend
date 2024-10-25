@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true, //so that someone dont haev extra space
+      trim: true,
     },
     email: {
       type: String,
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate(value) {
         if (!validator.isEmail(value)) {
-          throw new Error("Email is invalid!");
+          throw new Error("Email is invalid");
         }
       },
     },
@@ -34,17 +34,15 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-    //
     age: {
       type: Number,
       default: 0,
       validate(value) {
         if (value < 0) {
-          throw new Error("Age must be postive number");
+          throw new Error("Age must be a postive number");
         }
       },
     },
-
     tokens: [
       {
         token: {
@@ -57,7 +55,9 @@ const userSchema = new mongoose.Schema(
       type: Buffer,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 // userSchema.virtual("tasks", {
@@ -67,6 +67,8 @@ const userSchema = new mongoose.Schema(
 // });
 
 // userSchema.methods.toJSON = function () {};
+
+require("dotenv").config();
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;

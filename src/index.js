@@ -1,12 +1,10 @@
 const express = require("express");
-const User = require("./models/user");
 require("./db/mongoose");
 const app = express();
-const port = process.env.PORT || 3000;
 const userRouter = require("../src/routers/userRouter");
 const taskRouter = require("../src/routers/taskRouter");
-const jwt = require("jsonwebtoken");
-const Task = require("./models/task");
+
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(userRouter);
